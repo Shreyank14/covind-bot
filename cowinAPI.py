@@ -59,3 +59,7 @@ class cowinapi():
                     filtered_centers['centers'].append(
                         filtered_center.asdict())
             return filtered_centers
+
+
+# cowin = cowinapi()
+# print(cowin.call_api(45, '269'))
