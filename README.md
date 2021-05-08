@@ -1,5 +1,6 @@
 # covind-bot
-A bot to poll the cowin api to find vaccination slots and send notifications to a discord channel.
+A python bot to poll the cowin api to find vaccination slots and send notifications to a discord channel.
+Uses the cowin API wrapper
 
 
 Setup 
