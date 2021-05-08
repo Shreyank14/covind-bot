@@ -50,8 +50,8 @@ if __name__ == "__main__":
         print("Poll timer: "+str(poll))
 
     def get_embed(center):
-        disc = "Available Capacity: {}\nDate: {}\nVaccie Name: {}\nFee Type: {}\nBlock Name: {}\n Address: {}".format(
-            center['available_capacity'], center['date'], center['vaccine'], center['fee_type'], center['block_name'], center['address'])
+        disc = "Available Capacity: {}\nDate: {}\nVaccie Name: {}\nFee Type: {}\nMin Age: {}\nBlock Name: {}\n Address: {}".format(
+            center['available_capacity'], center['date'], center['vaccine'], center['fee_type'], center['age'], center['block_name'], center['address'])
         name = center['name']
         registration_url = 'https://selfregistration.cowin.gov.in/'
         embed = discord.Embed(title=name, url=registration_url,
@@ -63,16 +63,24 @@ if __name__ == "__main__":
         channel = client.get_channel(int(CHANNEL))  # channel ID goes here
         cowin = cowinapi()
         vaccine_center = cowin.call_api(age, districtID)
-        if vaccine_center != None:
+        await channel.send("Found the vaccine_center")
+        print(len(vaccine_center['centers']))
+        if vaccine_center == None:
+            errorChannel = client.get_channel(int(ERROR_CHANNEL))
+            await errorChannel.send("The Cowin API is currently not responding. Don't Worry I got your back, I will try again after some time.")
+            time.sleep(600)
+        if len(vaccine_center['centers']) == 0:
+            errorChannel = client.get_channel(int(ERROR_CHANNEL))
+            await errorChannel.send("Currently, no centers in the requested district have vaccine available for the required age group")
+            time.sleep(300)  # wait for 5 minutes
+        else:
+            print(vaccine_center)
             for center in vaccine_center['centers']:
                 embed = get_embed(center)
                 await channel.send('NEW UPDATE!')
                 await channel.send(embed=embed)
                 print('Sending message to discord')
-            # await channel.send('hi! In task')
-        else:
-            errorChannel = client.get_channel(int(ERROR_CHANNEL))
-            await errorChannel.send("The Cowin API is currently not responding. Don't Worry I got your back, I will try again after some time.")
+            await channel.send("These are the latest updates. I will wait for 10 minutes and poll the cowin porta again.")
             time.sleep(600)
 
     @client.event

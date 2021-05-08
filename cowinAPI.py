@@ -14,7 +14,7 @@ cowin = CoWinAPI()
 
 
 class vaccine_center(dict):
-    def __init__(self, name, address, block_name, fee_type, available_capacity, vaccine, date):
+    def __init__(self, name, address, block_name, fee_type, available_capacity, vaccine, date, age):
         self.name = name
         self.address = address
         self.block_name = block_name
@@ -22,10 +22,11 @@ class vaccine_center(dict):
         self.available_capacity = available_capacity
         self.vaccine = vaccine
         self.date = date
+        self.age = age
         # self.slots = slots
 
     def asdict(self):
-        return {'name': self.name, 'address': self.address, 'block_name': self.block_name, 'fee_type': self.fee_type, 'available_capacity': self.available_capacity, 'vaccine': self.vaccine, 'date': self.date}
+        return {'name': self.name, 'address': self.address, 'block_name': self.block_name, 'fee_type': self.fee_type, 'available_capacity': self.available_capacity, 'vaccine': self.vaccine, 'date': self.date, 'age': self.age}
 
     def __getattr__(self, attr):
         return self[attr]
@@ -43,21 +44,15 @@ class cowinapi():
             print(
                 "API is not responding currently, will wait for some time and try again")
             return None
-            #available_centers = json.loads(str(available_centers))
         else:
-            print(available_centers)
             for center in available_centers['centers']:
-                # print(type(center))
-                #center = json.loads(center)
-                print("HELLO")
-                print(center)
                 if center['sessions'][0]['available_capacity'] > 0:
                     # print(center)
                     filtered_center = vaccine_center(
-                        center['name'], center['address'], center['block_name'], center['fee_type'], center['sessions'][0]['available_capacity'], center['sessions'][0]['vaccine'], center['sessions'][0]['date'])
-                    # vars(filtered_center)
+                        center['name'], center['address'], center['block_name'], center['fee_type'], center['sessions'][0]['available_capacity'], center['sessions'][0]['vaccine'], center['sessions'][0]['date'], center['sessions'][0]['min_age_limit'])
                     filtered_centers['centers'].append(
                         filtered_center.asdict())
+                    print(filtered_centers)
             return filtered_centers
 
 
