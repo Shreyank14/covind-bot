@@ -9,9 +9,9 @@ Setup
 - set the environment variables 
     -create a .env in your working directory 
     - set the following varibale 
-      1) DISCORD_TOKEN ( the bot token from discord)
-      2) DISCORD_CHANNEL ( Channel ID: this is where the bot will ping your messages )
-      3) DISCORD_ERROR_CHANNEL ( Channel ID for error messages. This is where the bot will sending logs/errors) 
+      1) DISCORD_TOKEN (the bot token from discord)
+      2) DISCORD_CHANNEL (Channel ID: this is where the bot will ping your messages)
+      3) DISCORD_ERROR_CHANNEL (Channel ID for error messages. This is where the bot will sending logs/errors) 
 - run pip install -r requirements.txt 
 
 
@@ -19,8 +19,8 @@ Run:
 - python discordBot.py 
 
 Arguements(optional): 
-  - age ( minimum age to consider for the vaccination slot) #default=18
-  - district ( District ID for the vaccination centers. Can check the Arogya Sethu API for your district ID https://apisetu.gov.in/public/api/cowin#/ ) #default=269
-  - poll ( Time between polling the cowin API) #default=60
+  - age (minimum age to consider for the vaccination slot) #default=18
+  - district (District ID for the vaccination centers. Can check the Arogya Sethu API for your district ID https://apisetu.gov.in/public/api/cowin#/) #default=269 (Dakshina Kannada)
+  - poll (Time between polling the cowin API) #default=60
       
 
