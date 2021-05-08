@@ -1,0 +1,10 @@
+[Unit]
+Description=run covind bot 
+
+[Service]
+Type=simple
+User=ec2-user
+ExecStart=/usr/bin/python3 /home/ec2-user/covindBot/discordBot.py
+
+[Install]
+WantedBy=multi-user.target

@@ -63,12 +63,11 @@ if __name__ == "__main__":
         channel = client.get_channel(int(CHANNEL))  # channel ID goes here
         cowin = cowinapi()
         vaccine_center = cowin.call_api(age, districtID)
-        await channel.send("Found the vaccine_center")
-        print(len(vaccine_center['centers']))
         if vaccine_center == None:
             errorChannel = client.get_channel(int(ERROR_CHANNEL))
             await errorChannel.send("The Cowin API is currently not responding. Don't Worry I got your back, I will try again after some time.")
             time.sleep(600)
+            return
         if len(vaccine_center['centers']) == 0:
             errorChannel = client.get_channel(int(ERROR_CHANNEL))
             await errorChannel.send("Currently, no centers in the requested district have vaccine available for the required age group")
