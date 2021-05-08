@@ -3,7 +3,7 @@ A bot to poll the cowin api to find vaccination slots and send notifications to 
 
 
 Setup 
-- Create a Application on Discord (https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications)
+- Create a application on Discord (https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications)
   - create a bot for the application
   - make set up OAuth2 for the bot (click on OAuth2, select bot and the copy the link thats generated. Paste on a new browser tab)
 - set the environment variables 
