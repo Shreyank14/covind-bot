@@ -25,3 +25,22 @@ Arguements(optional):
   - poll (Time between polling the cowin API) #default=60
       
 
+
+To run on cloud(AWS): 
+  - Note: can only be run on servers located in India.(The cowin API has geofenced to accepet request coming from Indian servers only) 
+  - An VM that is loacted in India can run this script. (I used AWS and choose the Mumbai region)
+  - Steps to follow after launching a VM:
+      - Install python (sudo yum install python36)
+      - Install pip 
+          -cd /tmp
+          -curl -O https://bootstrap.pypa.io/get-pip.py
+          -python3 get-pip.py --user
+          -pip3 --version
+      - Transfer the code (Use filezilla or winscp, based on os)
+      - create a systemd service 
+          -Create a service file like covind.service (script provided above)
+          -Put it in /lib/systemd/system/
+          -Reload systemd using command: systemctl daemon-reload
+          -Enable auto start using command: systemctl enable covind.service
+          -start service using: systemctl start covind
+          -check status of service: systemctl status covind
