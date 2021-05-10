@@ -1,12 +1,9 @@
 # covind-bot
-A bot to poll the cowin api to find vaccination slots and send notifications to a discord channel.
-
-# covind-bot
 A python bot to poll the cowin api to find vaccination slots and send notifications to a discord channel.
 Uses the cowin API wrapper
 
 
-Setup 
+# Setup 
 - Create a application on Discord (https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications)
   - create a bot for the application
   - make sure to set up OAuth2 for the bot (click on OAuth2, select bot and the copy the link thats generated. Paste on a new browser tab)
@@ -19,8 +16,8 @@ Setup
 - run pip install -r requirements.txt 
 
 
-Run:
-- python discordBot.py 
+# Run:
+- ` python discordBot.py `
 
 Arguements(optional): 
   - age (minimum age to consider for the vaccination slot) #default=18
@@ -29,21 +26,21 @@ Arguements(optional):
       
 
 
-To run on cloud(AWS): 
+# To run on cloud(AWS): 
   - Note: can only be run on servers located in India.(The cowin API has geofenced to accepet request coming from Indian servers only) 
   - An VM that is loacted in India can run this script. (I used AWS and choose the Mumbai region)
   - Steps to follow after launching a VM:
-      - Install python (sudo yum install python36)
+      - Install python `sudo yum install python36`
       - Install pip 
-          -cd /tmp
-          -curl -O https://bootstrap.pypa.io/get-pip.py
-          -python3 get-pip.py --user
-          -pip3 --version
+          - `cd /tmp`
+          - `curl -O https://bootstrap.pypa.io/get-pip.py`
+          - `python3 get-pip.py --user`
+          - `pip3 --version`
       - Transfer the code (Use filezilla or winscp, based on os)
       - create a systemd service 
           - Create a service file like covind.service (script provided above)
           - Put it in /lib/systemd/system/
-          - Reload systemd using command: systemctl daemon-reload
-          - Enable auto start using command: systemctl enable covind.service
-          - start service using: systemctl start covind
-          - check status of service: systemctl status covind
+          - Reload systemd using command: `systemctl daemon-reload`
+          - Enable auto start using command: `systemctl enable covind.service`
+          - start service using: `systemctl start covind`
+          - check status of service: `systemctl status covind`
