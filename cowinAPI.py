@@ -46,13 +46,14 @@ class cowinapi():
             return None
         else:
             for center in available_centers['centers']:
-                if center['sessions'][0]['available_capacity'] > 0:
-                    # print(center)
-                    filtered_center = vaccine_center(
-                        center['name'], center['address'], center['block_name'], center['fee_type'], center['sessions'][0]['available_capacity'], center['sessions'][0]['vaccine'], center['sessions'][0]['date'], center['sessions'][0]['min_age_limit'])
-                    filtered_centers['centers'].append(
-                        filtered_center.asdict())
-                    print(filtered_centers)
+                for slot in center['sessions']:
+                    if slot['available_capacity'] > 0:
+                        # print(center)
+                        filtered_center = vaccine_center(
+                            center['name'], center['address'], center['block_name'], center['fee_type'], slot['available_capacity'], slot['vaccine'], slot['date'], slot['min_age_limit'])
+                        filtered_centers['centers'].append(
+                            filtered_center.asdict())
+                        print(filtered_centers)
             return filtered_centers
 
 

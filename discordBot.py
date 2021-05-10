@@ -35,7 +35,7 @@ if __name__ == "__main__":
         age = int(args.age)
         print("Min Age: "+str(age))
     else:
-        age = 45  # deafult
+        age = 18  # deafult
         print("Min Age: "+str(age))
     if districtID:
         print("Disctict ID: "+str(districtID))
@@ -46,7 +46,7 @@ if __name__ == "__main__":
         poll = int(args.poll)
         print("Poll timer: "+str(poll))
     else:
-        poll = 60  # deafult
+        poll = 15  # deafult
         print("Poll timer: "+str(poll))
 
     def get_embed(center):
@@ -66,12 +66,12 @@ if __name__ == "__main__":
         if vaccine_center == None:
             errorChannel = client.get_channel(int(ERROR_CHANNEL))
             await errorChannel.send("The Cowin API is currently not responding. Don't Worry I got your back, I will try again after some time.")
-            time.sleep(600)
+            time.sleep(60)
             return
         if len(vaccine_center['centers']) == 0:
             errorChannel = client.get_channel(int(ERROR_CHANNEL))
             await errorChannel.send("Currently, no centers in the requested district have vaccine available for the required age group")
-            time.sleep(300)  # wait for 5 minutes
+            # time.sleep(300)  # wait for 5 minutes
         else:
             print(vaccine_center)
             for center in vaccine_center['centers']:
@@ -79,8 +79,8 @@ if __name__ == "__main__":
                 await channel.send('NEW UPDATE!')
                 await channel.send(embed=embed)
                 print('Sending message to discord')
-            await channel.send("These are the latest updates. I will wait for 10 minutes and poll the cowin porta again.")
-            time.sleep(600)
+            await channel.send("These are the latest updates. I will wait for 5 minutes and check again for new slots.")
+            time.sleep(300)
 
     @client.event
     async def on_member_join(member):
@@ -113,7 +113,6 @@ if __name__ == "__main__":
     async def on_ready():
         print(f'{client.user.name} has connected to Discord!')
         print('Logged in as')
-        print('------')
         my_background_task.start()
 
     client.run(TOKEN)
