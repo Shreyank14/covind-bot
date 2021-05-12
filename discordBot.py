@@ -1,4 +1,4 @@
-# bot.py
+
 import os
 import random
 import argparse
@@ -14,6 +14,15 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 CHANNEL = os.getenv('DISCORD_CHANNEL')
 ERROR_CHANNEL = os.getenv('DISCORD_ERROR_CHANNEL')
 client = discord.Client()
+
+
+final_update_messages = [
+    'These are the latest updates. I will wait for 3 minutes and check again for new slots',
+    'That\'s all for now. I will be back with more updates as soon as they are available',
+    'Hope this helps!',
+    'These were the latest updates that I could fetch',
+    'That\'s it for now. Stay safe, mask up'
+]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="""
@@ -35,18 +44,19 @@ if __name__ == "__main__":
         age = int(args.age)
         print("Min Age: "+str(age))
     else:
-        age = 18  # deafult
+        # get deafault
+        age = int(os.getenv(('AGE')))
         print("Min Age: "+str(age))
     if districtID:
         print("Disctict ID: "+str(districtID))
     else:
-        districtID = str(269)  # deafult
+        districtID = os.getenv('DISTRICT_ID')  # deafult
         print("Disctict ID: "+str(districtID))
     if poll:
         poll = int(args.poll)
         print("Poll timer: "+str(poll))
     else:
-        poll = 15  # deafult
+        poll = int(os.getenv('POLL'))  # deafult
         print("Poll timer: "+str(poll))
 
     def get_embed(center):
@@ -79,8 +89,9 @@ if __name__ == "__main__":
                 await channel.send('NEW UPDATE!')
                 await channel.send(embed=embed)
                 print('Sending message to discord')
-            await channel.send("These are the latest updates. I will wait for 5 minutes and check again for new slots.")
-            time.sleep(300)
+            final_update_message = random.choice(final_update_messages)
+            await channel.send(final_update_message)
+            time.sleep(180)
 
     @client.event
     async def on_member_join(member):

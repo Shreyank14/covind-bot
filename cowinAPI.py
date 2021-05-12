@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 import json
 import time
 
@@ -6,10 +7,15 @@ from datetime import date
 
 today = date.today()
 
-#district_id = '269'
-date = today.strftime("%d-%m-%Y")  # Optional. Takes today's date by default
-# Optional. By default returns centers without filtering by min_age_limit
-#min_age_limit = 18
+
+def utc_to_local(utc_dt):
+    return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
+
+
+def aslocaltimestr(utc_dt):
+    return utc_to_local(utc_dt).strftime("%d-%m-%Y")
+
+
 cowin = CoWinAPI()
 
 
@@ -35,6 +41,7 @@ class vaccine_center(dict):
 class cowinapi():
     def call_api(self, min_age_limit, district_id):
         filtered_centers = {'centers': []}
+        date = aslocaltimestr(datetime.utcnow())
         try:
             print("Calling API")
             available_centers = cowin.get_availability_by_district(
@@ -55,7 +62,3 @@ class cowinapi():
                             filtered_center.asdict())
                         print(filtered_centers)
             return filtered_centers
-
-
-# cowin = cowinapi()
-# print(cowin.call_api(45, '269'))
