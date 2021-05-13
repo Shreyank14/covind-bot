@@ -20,7 +20,7 @@ cowin = CoWinAPI()
 
 
 class vaccine_center(dict):
-    def __init__(self, name, address, block_name, fee_type, available_capacity, vaccine, date, age):
+    def __init__(self, name, address, block_name, fee_type, available_capacity, vaccine, date, age, pincode):
         self.name = name
         self.address = address
         self.block_name = block_name
@@ -29,10 +29,10 @@ class vaccine_center(dict):
         self.vaccine = vaccine
         self.date = date
         self.age = age
-        # self.slots = slots
+        self.pincode = pincode
 
     def asdict(self):
-        return {'name': self.name, 'address': self.address, 'block_name': self.block_name, 'fee_type': self.fee_type, 'available_capacity': self.available_capacity, 'vaccine': self.vaccine, 'date': self.date, 'age': self.age}
+        return {'name': self.name, 'address': self.address, 'block_name': self.block_name, 'fee_type': self.fee_type, 'available_capacity': self.available_capacity, 'vaccine': self.vaccine, 'date': self.date, 'age': self.age, 'pincode': self.pincode}
 
     def __getattr__(self, attr):
         return self[attr]
@@ -57,7 +57,7 @@ class cowinapi():
                     if slot['available_capacity'] > 0:
                         # print(center)
                         filtered_center = vaccine_center(
-                            center['name'], center['address'], center['block_name'], center['fee_type'], slot['available_capacity'], slot['vaccine'], slot['date'], slot['min_age_limit'])
+                            center['name'], center['address'], center['block_name'], center['fee_type'], slot['available_capacity'], slot['vaccine'], slot['date'], slot['min_age_limit'], center['pincode'])
                         filtered_centers['centers'].append(
                             filtered_center.asdict())
                         print(filtered_centers)

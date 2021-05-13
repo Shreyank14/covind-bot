@@ -17,7 +17,7 @@ client = discord.Client()
 
 
 final_update_messages = [
-    'These are the latest updates. I will wait for 3 minutes and check again for new slots',
+    'These are the latest updates. I will wait for sometime and check again for new slots',
     'That\'s all for now. I will be back with more updates as soon as they are available',
     'Hope this helps!',
     'These were the latest updates that I could fetch',
@@ -60,8 +60,8 @@ if __name__ == "__main__":
         print("Poll timer: "+str(poll))
 
     def get_embed(center):
-        disc = "Available Capacity: {}\nDate: {}\nVaccie Name: {}\nFee Type: {}\nMin Age: {}\nBlock Name: {}\n Address: {}".format(
-            center['available_capacity'], center['date'], center['vaccine'], center['fee_type'], center['age'], center['block_name'], center['address'])
+        disc = "Pincode: {}\nAvailable Capacity: {}\nDate: {}\nVaccie Name: {}\nFee Type: {}\nMin Age: {}\nBlock Name: {}\nAddress: {}".format(
+            center['pincode'], center['available_capacity'], center['date'], center['vaccine'], center['fee_type'], center['age'], center['block_name'], center['address'])
         name = center['name']
         registration_url = 'https://selfregistration.cowin.gov.in/'
         embed = discord.Embed(title=name, url=registration_url,
@@ -99,26 +99,6 @@ if __name__ == "__main__":
         await member.dm_channel.send(
             f'Hi {member.name}, welcome to my Discord server!'
         )
-
-    @client.event
-    async def on_message(message):
-        if message.author == client.user:
-            return
-
-        brooklyn_99_quotes = [
-            'I\'m the human form of the 💯 emoji.',
-            'Bingpot!',
-            (
-                'Cool. Cool cool cool cool cool cool cool, '
-                'no doubt no doubt no doubt no doubt.'
-            ),
-        ]
-
-        if message.content == '99!':
-            response = random.choice(brooklyn_99_quotes)
-            await message.channel.send(response)
-        elif message.content == 'raise-exception':
-            raise discord.DiscordException
 
     @client.event
     async def on_ready():
